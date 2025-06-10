@@ -1,8 +1,8 @@
 ---
 
 # define the root path of install
-installer_root_path: /home/dingo
-installer_cache_path: /tmp
+installer_root_path: /mnt/lv_01/national-weather-service/install
+installer_cache_path: /mnt/lv_01/national-weather-service/tmp
 delete_cache_after_install: false
 
 # define the global log and data directory
@@ -10,10 +10,10 @@ dingo_log_dir: "{{ installer_root_path }}/log"
 dingo_data_dir: "{{ installer_root_path }}/data"
 dingo_run_dir: "{{ installer_root_path }}/run"
 
-dingo_user: dingodb
-dingo_group: dingodb
-jdk_user: dingodb
-jdk_group: dingodb
+dingo_user: zetyun
+dingo_group: zetyun
+jdk_user: zetyun
+jdk_group: zetyun
 
 #define installer password
 installer_password: dingo
@@ -21,12 +21,12 @@ installer_password: dingo
 #-----------------------------------------------------
 # 1. Update System Configuration about OS
 #-----------------------------------------------------
-install_system: false
+install_system: true
 # disann is must libaio-devel and boost-devel
-install_system_basicTools: true
+install_system_basicTools: false
 install_system_fileLimits: true
-set_core_file: false
-core_file_dir: /home/corefiles
+set_core_file: true
+core_file_dir: /mnt/lv_01/national-weather-service/corefiles
 ulimit_nproc_limit: 4194304
 ulimit_nofile_limit: 1048576
 fs_aio_max_nr: 1048576
@@ -48,10 +48,10 @@ check_port_conflicts: true
 #-----------------------------------------------------
 # 3. Install Dingo to Dingo home
 #-----------------------------------------------------
-install_dingo: true
-install_dingo_basic_command: true
-install_dingo_update_configuration: true
-install_dingo_start_roles: true
+install_dingo: false
+install_dingo_basic_command: false
+install_dingo_update_configuration: false
+install_dingo_start_roles: false
 # is license support
 is_license_support: false
 
@@ -78,7 +78,7 @@ open_dingo_store_logrotate: false
 #-----------------------------------------------------
 # 5. Install Prometheus to Dingo directory
 #-----------------------------------------------------
-install_prometheus: true
+install_prometheus: false
 blackbox_exporter_port: 19115
 blackbox_exporter_server: "{{ prometheus_server }}"
 
@@ -86,12 +86,12 @@ blackbox_exporter_server: "{{ prometheus_server }}"
 jmx_prometheus_javaagent_port: 8899
 
 # Node Exporter
-install_node_exporter: true
+install_node_exporter: false
 node_exporter_port: 19100
 node_exporter_servers: "{{ groups['node_exporter'] }}"
 
 # Process Exporter
-install_process_exporter: true
+install_process_exporter: false
 process_exporter_port: 19256
 process_exporter_servers: "{{ groups['process_exporter'] }}"
 
@@ -105,7 +105,7 @@ pushgateway_port: 19091
 pushgateway_server: "{{ prometheus_server }}"
 
 # Grafana
-install_grafana: true
+install_grafana: false
 grafana_port: 3000
 grafana_server: "{{ groups['grafana'][0] }}"
 default_dashboard_uid: "RNezu0fWk"
@@ -116,16 +116,16 @@ dingo_tmp_index_list: "{{ groups['index'] }}"
 dingo_tmp_executor_list: "{{ groups['executor'] | default(\"\") }}"
 
 # dingo-store port
-dingo_store_coordinator_exchange_port: 22001
-dingo_store_coordinator_raft_port: 22101
-dingo_store_exchange_port: 20001
-dingo_store_raft_port: 20101
-dingo_store_document_exchange_port: 23001
-dingo_store_document_raft_port: 23101
-dingo_store_index_exchange_port: 21001
-dingo_store_index_raft_port: 21101
-dingo_store_diskann_exchange_port: 24001
-dingo_store_diskann_raft_port:  24101
+dingo_store_coordinator_exchange_port: 32001
+dingo_store_coordinator_raft_port: 32101
+dingo_store_exchange_port: 30001
+dingo_store_raft_port: 30101
+dingo_store_document_exchange_port: 33001
+dingo_store_document_raft_port: 33101
+dingo_store_index_exchange_port: 31001
+dingo_store_index_raft_port: 31101
+dingo_store_diskann_exchange_port: 34001
+dingo_store_diskann_raft_port:  34101
 # lisence ip
 server_listen_host: 0.0.0.0
 raft_listen_host: 0.0.0.0
@@ -147,7 +147,7 @@ dingo_proxy_grpc_port: 9999
 # web port
 install_monitor_web: false
 dingo_monitor_backend_port: 13001
-install_nginx: true
+install_nginx: false
 nginx_install_path: "{{ installer_root_path }}"
 dingo_monitor_frontend_port: 13002
 nginx_user: "{{ dingo_user }}"
